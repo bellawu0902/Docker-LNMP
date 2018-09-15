@@ -27,7 +27,7 @@
     
     You can see the result.
     
-    ![docker ps](https://i.imgur.com/IFAmYDe.png)
+    ![docker ps](https://i.imgur.com/WWR4xiM.png)
     
 * Check web service
 
