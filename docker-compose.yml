@@ -1,41 +1,49 @@
 version: '3'
 services:
     mysql:
+        # 映像檔名稱或映像檔ID
         image: mysql:5.7
+        # 開通連接埠資訊(Host主機:容器)
         ports:
             - "3306:3306"
         # 環境變量
         environment:
             # mysql密碼
             - MYSQL_ROOT_PASSWORD=YOUR_MYSQL_PASSWORD
+        # 指定容器名稱
         container_name: "mysql"
     
     php:
         build: ./php-mysqli
         # image指定build Dockerfile生成鏡像的名稱
         image: php:7.2-fpm-mysqli
+        # 開通連接埠資訊(Host主機:容器)
         ports:
             - "9000:9000"
+        # 設置資料卷所掛載路徑(Host主機:容器)
         volumes:
             - "$PWD/html:/var/www/html"
+        # 連結到其他服務中的容器
         links :
             - mysql
+        # 指定容器名稱
         container_name: "php7"
 
     nginx:
         image: nginx:latest
-        # 端口映射
+        # 開通連接埠資訊(Host主機:容器)
         ports:
             - "80:80"
         # 相依關係，先跑php
         depends_on:
             - "php"
-        # 數據卷
+        # 設置資料卷所掛載路徑(Host主機:容器)
         volumes:
             # 映射本機的./conf.d目錄到Docker容器中的/etc/nginx/conf.d目錄
             - "$PWD/conf.d:/etc/nginx/conf.d"
             - "$PWD/html:/usr/share/nginx/html"
+        # 連結到其他服務中的容器
         links :
             - php
-        # 容器名稱
+        # 指定容器名稱
         container_name: "nginx"
