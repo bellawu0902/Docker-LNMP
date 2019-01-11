@@ -42,6 +42,15 @@
     $ docker rm $(docker ps -a -q) -f
     ```
     
+
+* Delete all images
+
+    If you want to delete all images, you can input the instruction.
+    
+    ```
+    $ docker rmi $(docker images -q) -f
+    ```
+    
 * Reference information
     
     - [Docker Hub](https://hub.docker.com/explore/)
